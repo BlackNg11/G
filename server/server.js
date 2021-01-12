@@ -2,9 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
+var cors = require('cors')
 
 const app = express();
 require('dotenv').config();
+app.use(cors())
 
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.DATABASE,{ useNewUrlParser: true, useUnifiedTopology: true  });
