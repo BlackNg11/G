@@ -1,8 +1,13 @@
-export default function(state={}, action) {
+import { LOGIN_USER, REGISTER_USER } from "../action/types";
+
+export default function (state = {}, action) {
 	switch (action.type) {
-		// case label_1:
-		// 	// statements_1
-		// 	break;
+		case LOGIN_USER:
+			return { ...state, loginSucces: action.payload };
+			break;
+		case REGISTER_USER:
+			return { ...state, register: action.payload };
+			break;
 		default:
 			return state;
 			break;
