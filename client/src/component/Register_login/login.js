@@ -59,7 +59,7 @@ export class Login extends React.Component {
 		if (formIsValid) {
 			this.props.dispatch(loginUser(dataToSubmit)).then((response) => {
 				if (response.payload.loginSuccess) {
-					console.log(response.payload);
+					// console.log(response.payload);
 					this.props.history.push("/user/dashboard");
 				} else {
 					this.setState({
