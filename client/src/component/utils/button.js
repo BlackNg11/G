@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function MyButton(props) {
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import faShoppingBag from "@fortawesome/fontawesome-free-solid/faShoppingBag";
+
+const MyButton = (props) => {
 	const buttons = () => {
 		let template = "";
 
@@ -9,7 +12,9 @@ function MyButton(props) {
 			case "default":
 				template = (
 					<Link
-						className="link_default"
+						className={
+							!props.altClass ? "link_default" : props.altClass
+						}
 						to={props.linkTo}
 						{...props.addStyles}
 					>
@@ -17,15 +22,25 @@ function MyButton(props) {
 					</Link>
 				);
 				break;
+			case "bag_link":
+				template = (
+					<div
+						className="bag_link"
+						onClick={() => {
+							props.runAction();
+						}}
+					>
+						<FontAwesomeIcon icon={faShoppingBag} />
+					</div>
+				);
+				break;
 			default:
 				template = "";
-				break;
 		}
-
 		return template;
 	};
 
 	return <div className="my_link">{buttons()}</div>;
-}
+};
 
 export default MyButton;
