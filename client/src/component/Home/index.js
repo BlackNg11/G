@@ -1,13 +1,16 @@
-import React from 'react'
+import React from "react";
+import HomeSlider from "./home_slider";
+import HomePromotion from "./home_promotion";
 
 class Home extends React.Component {
 	render() {
 		return (
 			<div>
-				Hello Word
+				<HomeSlider />
+				<HomePromotion />
 			</div>
-		)
+		);
 	}
 }
 
-export default Home
+export default Home;
