@@ -6,7 +6,11 @@ import CollapseRadio from "../utils/collapseRadio";
 import { frets, price } from "../utils/Form/fixed_categories";
 
 import { connect } from "react-redux";
-import { getBrands, getWoods } from "../../action/product_action";
+import {
+	getProductsToShop,
+	getBrands,
+	getWoods,
+} from "../../action/product_action";
 
 class Shop extends React.Component {
 	state = {
@@ -24,6 +28,13 @@ class Shop extends React.Component {
 	componentDidMount() {
 		this.props.dispatch(getBrands());
 		this.props.dispatch(getWoods());
+		this.props.dispatch(
+			getProductsToShop(
+				this.state.skip,
+				this.state.limit,
+				this.state.filters
+			)
+		);
 	}
 
 	handlePrice = (value) => {
@@ -48,9 +59,21 @@ class Shop extends React.Component {
 			newFilters[category] = priceValues;
 		}
 
+		this.showFilteredResults(newFilters);
+
 		this.setState({
 			filters: newFilters,
 		});
+	};
+
+	showFilteredResults = (filters) => {
+		this.props
+			.dispatch(getProductsToShop(0, this.state.limit, filters))
+			.then(() => {
+				this.setState({
+					skip: 0,
+				});
+			});
 	};
 
 	render() {
