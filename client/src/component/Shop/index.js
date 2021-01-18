@@ -11,6 +11,10 @@ import {
 	getBrands,
 	getWoods,
 } from "../../action/product_action";
+import LoadmoreCard from "./loadmoreCard.js";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import faBars from "@fortawesome/fontawesome-free-solid/faBars";
+import faTh from "@fortawesome/fontawesome-free-solid/faTh";
 
 class Shop extends React.Component {
 	state = {
@@ -36,6 +40,12 @@ class Shop extends React.Component {
 			)
 		);
 	}
+
+	handleGrid = () => {
+		this.setState({
+			grid: !this.state.grid ? "grid_bars" : "",
+		});
+	};
 
 	handlePrice = (value) => {
 		const data = price;
@@ -72,6 +82,25 @@ class Shop extends React.Component {
 			.then(() => {
 				this.setState({
 					skip: 0,
+				});
+			});
+	};
+
+	loadMoreCards = () => {
+		let skip = this.state.skip + this.state.limit;
+
+		this.props
+			.dispatch(
+				getProductsToShop(
+					skip,
+					this.state.limit,
+					this.state.filters,
+					this.props.products.toShop
+				)
+			)
+			.then(() => {
+				this.setState({
+					skip,
 				});
 			});
 	};
@@ -118,7 +147,39 @@ class Shop extends React.Component {
 								}
 							/>
 						</div>
-						<div className="right">right</div>
+						<div className="right">
+							<div className="shop_options">
+								<div className="shop_grids clear">
+									<div
+										className={`grid_btn ${
+											this.state.grid ? "" : "active"
+										}`}
+										onClick={() => this.handleGrid()}
+									>
+										<FontAwesomeIcon icon={faTh} />
+									</div>
+									<div
+										className={`grid_btn ${
+											!this.state.grid ? "" : "active"
+										}`}
+										onClick={() => this.handleGrid()}
+									>
+										<FontAwesomeIcon icon={faBars} />
+									</div>
+								</div>
+							</div>
+							<div>
+								<LoadmoreCard
+									grid={this.state.grid}
+									limit={this.state.limit}
+									size={products.toShopSize}
+									products={products.toShop}
+									loadMore={() => {
+										this.loadMoreCards();
+									}}
+								/>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
