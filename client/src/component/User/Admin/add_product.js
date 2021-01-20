@@ -6,9 +6,15 @@ import {
 	generateData,
 	isFormValid,
 	populteOptionFields,
+	resetFields,
 } from "../../utils/Form/formAction";
 import { connect } from "react-redux";
-import { getBrands, getWoods } from "../../../action/product_action";
+import {
+	getBrands,
+	getWoods,
+	addProduct,
+	clearProduct,
+} from "../../../action/product_action";
 
 class AddProduct extends React.Component {
 	state = {
@@ -26,7 +32,6 @@ class AddProduct extends React.Component {
 				},
 				validation: {
 					required: true,
-					email: true,
 				},
 				valid: false,
 				touched: false,
@@ -194,13 +199,42 @@ class AddProduct extends React.Component {
 		});
 	};
 
+	resetFieldHandler = () => {
+		const newFormdata = resetFields(this.state.formdata, "products");
+
+		this.setState({
+			formdata: newFormdata,
+			formSuccess: true,
+		});
+
+		setTimeout(() => {
+			this.setState(
+				{
+					formSuccess: false,
+				},
+				() => {
+					this.props.dispatch(clearProduct());
+				}
+			);
+		}, 3000);
+	};
+
 	submitForm = (event) => {
 		event.preventDefault();
 
-		let dataToSubmit = generateData(this.state.formdata, "register");
-		let formIsValid = isFormValid(this.state.formdata, "register");
-
+		let dataToSubmit = generateData(this.state.formdata, "products");
+		let formIsValid = isFormValid(this.state.formdata, "products");
+		console.log(dataToSubmit);
 		if (formIsValid) {
+			this.props.dispatch(addProduct(dataToSubmit)).then(() => {
+				if (this.props.products.addProduct.succes) {
+					this.resetFieldHandler();
+				} else {
+					this.setState({
+						formError: true,
+					});
+				}
+			});
 		} else {
 			this.setState({
 				formError: true,

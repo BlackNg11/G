@@ -5,6 +5,8 @@ import {
 	GET_BRANDS,
 	GET_WOODS,
 	GET_PRODUCTS_TO_SHOP,
+	ADD_PRODUCT,
+	CLEAR_PRODUCT,
 } from "./types";
 import { PRODUCT_SERVER } from "../component/utils/misc";
 
@@ -61,6 +63,15 @@ export function getProductsToShop(
 	};
 }
 
+export async function addProduct(datatoSubmit) {
+	const request = await axios.post(`${PRODUCT_SERVER}/article`, datatoSubmit);
+
+	return {
+		type: ADD_PRODUCT,
+		payload: request.data,
+	};
+}
+
 ///////////////
 //CATEGORIES
 //////////////
@@ -82,5 +93,12 @@ export async function getWoods() {
 	return {
 		type: GET_WOODS,
 		payload: resquest.data,
+	};
+}
+
+export async function clearProduct() {
+	return {
+		type: CLEAR_PRODUCT,
+		payload: "",
 	};
 }
