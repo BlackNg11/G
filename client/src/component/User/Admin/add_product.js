@@ -8,6 +8,7 @@ import {
 	populteOptionFields,
 	resetFields,
 } from "../../utils/Form/formAction";
+import FireUpload from "../../utils/Form/fileupload";
 import { connect } from "react-redux";
 import {
 	getBrands,
@@ -182,6 +183,24 @@ class AddProduct extends React.Component {
 				validationMessage: "",
 				showlabel: true,
 			},
+			images: {
+				value: [],
+				config: {
+					label: "Publish",
+					name: "publish_input",
+					options: [
+						{ key: true, value: "Public" },
+						{ key: false, value: "Hidden" },
+					],
+				},
+				validation: {
+					required: false,
+				},
+				valid: true,
+				touched: false,
+				validationMessage: "",
+				showlabel: false,
+			},
 		},
 	};
 
@@ -269,12 +288,32 @@ class AddProduct extends React.Component {
 		});
 	}
 
+	imagesHandler = (images) => {
+		const newFormData = {
+			...this.state.formdata,
+		};
+
+		newFormData["images"].value = images;
+		newFormData["images"].valid = true;
+
+		this.setState({
+			formdata: newFormData,
+		});
+	};
+
 	render() {
 		return (
 			<UserLayout>
 				<div>
 					<h1>Add Product</h1>
 					<form onSubmit={(event) => this.submitForm(event)}>
+						<FireUpload
+							imagesHandler={(images) =>
+								this.imagesHandler(images)
+							}
+							reset={this.state.formSuccess}
+						/>
+
 						<FormField
 							id={"name"}
 							formdata={this.state.formdata.name}
