@@ -9,8 +9,28 @@ import {
 	GET_PRODUCTS_TO_SHOP,
 	ADD_PRODUCT,
 	CLEAR_PRODUCT,
+	GET_PRODUCT_DETAIL,
+	CLEAR_PRODUCT_DETAIL,
 } from "./types";
 import { PRODUCT_SERVER } from "../component/utils/misc";
+
+export async function getProductDetail(id) {
+	const resquest = await axios.get(
+		`${PRODUCT_SERVER}/articles_by_id?id=${id}&type=single`
+	);
+
+	return {
+		type: GET_PRODUCT_DETAIL,
+		payload: resquest.data[0],
+	};
+}
+
+export function clearProductDetail() {
+	return {
+		type: CLEAR_PRODUCT_DETAIL,
+		payload: "",
+	};
+}
 
 export async function getProductsBySell() {
 	//articles?sortBy=sold&order=desc&limit=100&skip=5

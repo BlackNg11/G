@@ -118,7 +118,7 @@ app.get("/api/product/articles_by_id", (req, res) => {
 		.populate("wood")
 		.exec((err, doc) => {
 			if (err) return res.json({ succes: false, err });
-			return res.status(200).send(docs);
+			return res.status(200).send(doc);
 		});
 });
 

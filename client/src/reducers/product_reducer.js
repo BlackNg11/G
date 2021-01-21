@@ -8,6 +8,8 @@ import {
 	GET_PRODUCTS_TO_SHOP,
 	ADD_PRODUCT,
 	CLEAR_PRODUCT,
+	GET_PRODUCT_DETAIL,
+	CLEAR_PRODUCT_DETAIL,
 } from "../action/types";
 
 export default function (state = {}, action) {
@@ -50,6 +52,12 @@ export default function (state = {}, action) {
 			break;
 		case CLEAR_PRODUCT:
 			return { ...state, addProduct: action.payload };
+			break;
+		case GET_PRODUCT_DETAIL:
+			return { ...state, prodDetail: action.payload };
+			break;
+		case CLEAR_PRODUCT_DETAIL:
+			return { ...state, prodDetail: action.payload };
 			break;
 		default:
 			return state;
