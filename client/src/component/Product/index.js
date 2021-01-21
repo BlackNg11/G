@@ -6,11 +6,16 @@ import {
 	clearProductDetail,
 } from "../../action/product_action";
 import ProdNfo from "./prodNfo";
+import ProdImg from "./prodimg";
 
 class Product extends React.Component {
 	componentDidMount() {
 		const id = this.props.match.params.id;
-		this.props.dispatch(getProductDetail(id));
+		this.props.dispatch(getProductDetail(id)).then((response) => {
+			if (!this.props.products.prodDetail) {
+				this.props.history.push("/");
+			}
+		});
 	}
 
 	componentWillMount() {
@@ -24,7 +29,13 @@ class Product extends React.Component {
 				<div className="container">
 					{this.props.products.prodDetail ? (
 						<div className="product_detail_wrapper">
-							<div className="left">images</div>
+							<div className="left">
+								<div style={{ width: "500px" }}>
+									<ProdImg
+										detail={this.props.products.prodDetail}
+									/>
+								</div>
+							</div>
 							<div className="right">
 								{
 									<ProdNfo
