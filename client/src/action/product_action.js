@@ -3,7 +3,9 @@ import {
 	GET_PRODUCTS_BY_SELL,
 	GET_PRODUCTS_BY_ARRIVAL,
 	GET_BRANDS,
+	ADD_BRAND,
 	GET_WOODS,
+	ADD_WOOD,
 	GET_PRODUCTS_TO_SHOP,
 	ADD_PRODUCT,
 	CLEAR_PRODUCT,
@@ -86,6 +88,25 @@ export async function getBrands() {
 	};
 }
 
+export function addBrand(dataToSubmit, existingBrands) {
+	//articles?sortBy=sold&order=desc&limit=100&skip=5
+	const resquest = axios
+		.post(`${PRODUCT_SERVER}/brand`, dataToSubmit)
+		.then((response) => {
+			let brands = [...existingBrands, response.data.brand];
+
+			return {
+				success: response.data.succes,
+				brands,
+			};
+		});
+
+	return {
+		type: ADD_BRAND,
+		payload: resquest,
+	};
+}
+
 export async function getWoods() {
 	//articles?sortBy=sold&order=desc&limit=100&skip=5
 	const resquest = await axios.get(`${PRODUCT_SERVER}/woods`);
@@ -93,6 +114,22 @@ export async function getWoods() {
 	return {
 		type: GET_WOODS,
 		payload: resquest.data,
+	};
+}
+
+export function addWood(dataToSubmit, existingWoods) {
+	const request = axios
+		.post(`${PRODUCT_SERVER}/wood`, dataToSubmit)
+		.then((response) => {
+			let woods = [...existingWoods, response.data.wood];
+			return {
+				success: response.data.success,
+				woods,
+			};
+		});
+	return {
+		type: ADD_WOOD,
+		payload: request,
 	};
 }
 

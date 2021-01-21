@@ -243,7 +243,7 @@ class AddProduct extends React.Component {
 
 		let dataToSubmit = generateData(this.state.formdata, "products");
 		let formIsValid = isFormValid(this.state.formdata, "products");
-		console.log(dataToSubmit);
+		// console.log(dataToSubmit);
 		if (formIsValid) {
 			this.props.dispatch(addProduct(dataToSubmit)).then(() => {
 				if (this.props.products.addProduct.succes) {
