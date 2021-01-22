@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/server.js",
+    "start": "node server/server.js",
     "server": "nodemon server/server.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
@@ -27,5 +27,8 @@
     "moment": "^2.29.1",
     "mongoose": "^5.11.11",
     "multer": "^1.4.2"
+  },
+  "engines": {
+    "node": ">=10.0.0"
   }
 }
