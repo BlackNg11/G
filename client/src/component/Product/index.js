@@ -5,6 +5,7 @@ import {
 	getProductDetail,
 	clearProductDetail,
 } from "../../action/product_action";
+import { addToCart } from "../../action/user_action";
 import ProdNfo from "./prodNfo";
 import ProdImg from "./prodimg";
 
@@ -20,6 +21,10 @@ class Product extends React.Component {
 
 	componentWillMount() {
 		this.props.dispatch(clearProductDetail());
+	}
+
+	addToCartHandler(id) {
+		this.props.dispatch(addToCart(id));
 	}
 
 	render() {
@@ -40,8 +45,8 @@ class Product extends React.Component {
 								{
 									<ProdNfo
 										detail={this.props.products.prodDetail}
-										addToCard={(id) =>
-											this.addToCartHandler()
+										addToCart={(id) =>
+											this.addToCartHandler(id)
 										}
 									/>
 								}

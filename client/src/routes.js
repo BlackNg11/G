@@ -11,6 +11,7 @@ import Shop from "./component/Shop";
 import AddProduct from "./component/User/Admin/add_product";
 import ManageCategories from "./component/User/Admin/manage_categori";
 import ProductPage from "./component/Product";
+import UserCart from "./component/User/cart";
 
 function Routes() {
 	return (
@@ -20,6 +21,11 @@ function Routes() {
 					path="/user/dashboard"
 					exact
 					component={Auth(UserDashboard, true)}
+				/>
+				<Route
+					path="/user/cart"
+					exact
+					component={Auth(UserCart, true)}
 				/>
 				<Route
 					path="/admin/add_product"

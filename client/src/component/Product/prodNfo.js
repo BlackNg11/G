@@ -51,7 +51,7 @@ function ProdNfo(props) {
 				<MyButton
 					type="add_to_cart_link"
 					runAction={() => {
-						console.log("ADD TO CART");
+						props.addToCart(detail._id);
 					}}
 				/>
 			</div>
