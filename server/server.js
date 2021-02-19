@@ -375,9 +375,7 @@ app.get("/api/users/removeFromCart", auth, (req, res) => {
 	);
 });
 
-
-const port = process.env.PORT || 3002;
-
+const port = process.env.PORT || 3005;
 app.listen(port, () => {
 	console.log(`server running at ${port}`);
 });
